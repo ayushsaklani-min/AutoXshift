@@ -37,8 +37,9 @@ app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true }))
 
 // Request logging
-app.use((req, res, next) => {
-  logger.info(`${req.method} ${req.path} - ${req.ip}`)
+app.use((req: any, res: any, next: any) => {
+  const ip = (req && (req.ip || (req.headers && (req.headers['x-forwarded-for'] as string)) || req.connection?.remoteAddress)) || 'unknown'
+  logger.info(`${req.method} ${req.path} - ${ip}`)
   next()
 })
 
@@ -48,7 +49,7 @@ app.use('/api/swap', swapRoutes)
 app.use('/api/ai', aiRoutes)
 
 // Root endpoint
-app.get('/', (req, res) => {
+app.get('/', (req: any, res: any) => {
   res.json({
     name: 'AutoXShift API',
     version: '1.0.0',
@@ -59,7 +60,7 @@ app.get('/', (req, res) => {
 })
 
 // 404 handler
-app.use('*', (req, res) => {
+app.use('*', (req: any, res: any) => {
   res.status(404).json({
     error: 'Not Found',
     message: `Route ${req.originalUrl} not found`,

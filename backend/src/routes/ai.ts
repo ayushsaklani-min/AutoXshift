@@ -8,7 +8,7 @@ const router = express.Router()
  * @route GET /api/ai/recommend
  * @desc Get AI recommendations for swap timing and optimization
  */
-router.get('/recommend', async (req, res) => {
+router.get('/recommend', async (req: any, res: any) => {
   try {
     const { fromToken, toToken, amount } = req.query
     
@@ -47,7 +47,7 @@ router.get('/recommend', async (req, res) => {
  * @route POST /api/ai/analyze
  * @desc Analyze market conditions and provide insights
  */
-router.post('/analyze', async (req, res) => {
+router.post('/analyze', async (req: any, res: any) => {
   try {
     const { tokens, timeframe = '24h' } = req.body
     
@@ -82,7 +82,7 @@ router.post('/analyze', async (req, res) => {
  * @route POST /api/ai/explain
  * @desc Get AI explanation of swap transaction
  */
-router.post('/explain', async (req, res) => {
+router.post('/explain', async (req: any, res: any) => {
   try {
     const { transaction } = req.body
     
@@ -117,7 +117,7 @@ router.post('/explain', async (req, res) => {
  * @route GET /api/ai/optimize
  * @desc Get gas optimization recommendations
  */
-router.get('/optimize', async (req, res) => {
+router.get('/optimize', async (req: any, res: any) => {
   try {
     const { network = 'polygon-amoy' } = req.query
     
@@ -144,7 +144,7 @@ router.get('/optimize', async (req, res) => {
  * @route POST /api/ai/autox
  * @desc Configure AutoX mode settings
  */
-router.post('/autox', async (req, res) => {
+router.post('/autox', async (req: any, res: any) => {
   try {
     const { userAddress, settings } = req.body
     

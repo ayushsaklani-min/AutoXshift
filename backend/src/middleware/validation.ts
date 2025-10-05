@@ -1,4 +1,3 @@
-import { Request, Response, NextFunction } from 'express'
 import Joi from 'joi'
 import { createError } from './errorHandler'
 
@@ -27,7 +26,7 @@ const autoXConfigSchema = Joi.object({
 /**
  * Validate swap request
  */
-export const validateSwapRequest = (req: Request, res: Response, next: NextFunction): void => {
+export const validateSwapRequest = (req: any, res: any, next: any): void => {
   const { error } = swapRequestSchema.validate(req.body)
   
   if (error) {
@@ -41,7 +40,7 @@ export const validateSwapRequest = (req: Request, res: Response, next: NextFunct
 /**
  * Validate AI analysis request
  */
-export const validateAIAnalysis = (req: Request, res: Response, next: NextFunction): void => {
+export const validateAIAnalysis = (req: any, res: any, next: any): void => {
   const { error } = aiAnalysisSchema.validate(req.body)
   
   if (error) {
@@ -55,7 +54,7 @@ export const validateAIAnalysis = (req: Request, res: Response, next: NextFuncti
 /**
  * Validate AutoX configuration
  */
-export const validateAutoXConfig = (req: Request, res: Response, next: NextFunction): void => {
+export const validateAutoXConfig = (req: any, res: any, next: any): void => {
   const { error } = autoXConfigSchema.validate(req.body)
   
   if (error) {

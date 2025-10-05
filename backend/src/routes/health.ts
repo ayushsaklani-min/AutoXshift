@@ -8,7 +8,7 @@ const router = express.Router()
  * @route GET /api/health
  * @desc Health check endpoint
  */
-router.get('/', async (req, res) => {
+router.get('/', async (req: any, res: any) => {
   try {
     const health = await healthService.getHealthStatus()
     
@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
  * @route GET /api/health/ready
  * @desc Readiness check endpoint
  */
-router.get('/ready', async (req, res) => {
+router.get('/ready', async (req: any, res: any) => {
   try {
     const ready = await healthService.isReady()
     
@@ -63,7 +63,7 @@ router.get('/ready', async (req, res) => {
  * @route GET /api/health/live
  * @desc Liveness check endpoint
  */
-router.get('/live', (req, res) => {
+router.get('/live', (req: any, res: any) => {
   res.json({
     success: true,
     status: 'alive',

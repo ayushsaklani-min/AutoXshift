@@ -9,7 +9,7 @@ const router = express.Router()
  * @route POST /api/swap/quote
  * @desc Get swap quote from SideShift API
  */
-router.post('/quote', validateSwapRequest, async (req, res) => {
+router.post('/quote', validateSwapRequest, async (req: any, res: any) => {
   try {
     const { fromToken, toToken, amount, userAddress } = req.body
     
@@ -18,7 +18,7 @@ router.post('/quote', validateSwapRequest, async (req, res) => {
     const quote = await swapService.getSwapQuote({
       fromToken,
       toToken,
-      amount: parseFloat(amount),
+      amount: typeof amount === 'string' ? parseFloat(amount) : Number(amount),
       userAddress
     })
     
@@ -41,7 +41,7 @@ router.post('/quote', validateSwapRequest, async (req, res) => {
  * @route POST /api/swap/execute
  * @desc Execute swap transaction
  */
-router.post('/execute', validateSwapRequest, async (req, res) => {
+router.post('/execute', validateSwapRequest, async (req: any, res: any) => {
   try {
     const { fromToken, toToken, amount, userAddress, slippage } = req.body
     
@@ -50,7 +50,7 @@ router.post('/execute', validateSwapRequest, async (req, res) => {
     const result = await swapService.executeSwap({
       fromToken,
       toToken,
-      amount: parseFloat(amount),
+      amount: typeof amount === 'string' ? parseFloat(amount) : Number(amount),
       userAddress,
       slippage: slippage || 0.5
     })
@@ -74,7 +74,7 @@ router.post('/execute', validateSwapRequest, async (req, res) => {
  * @route GET /api/swap/tokens
  * @desc Get supported tokens
  */
-router.get('/tokens', async (req, res) => {
+router.get('/tokens', async (req: any, res: any) => {
   try {
     const tokens = await swapService.getSupportedTokens()
     
@@ -97,7 +97,7 @@ router.get('/tokens', async (req, res) => {
  * @route GET /api/swap/status/:txHash
  * @desc Get swap transaction status
  */
-router.get('/status/:txHash', async (req, res) => {
+router.get('/status/:txHash', async (req: any, res: any) => {
   try {
     const { txHash } = req.params
     
@@ -122,15 +122,15 @@ router.get('/status/:txHash', async (req, res) => {
  * @route GET /api/swap/history/:address
  * @desc Get swap history for address
  */
-router.get('/history/:address', async (req, res) => {
+router.get('/history/:address', async (req: any, res: any) => {
   try {
     const { address } = req.params
     const { limit = 50, offset = 0 } = req.query
     
     const history = await swapService.getSwapHistory(
       address,
-      parseInt(limit as string),
-      parseInt(offset as string)
+      parseInt(limit as string, 10),
+      parseInt(offset as string, 10)
     )
     
     res.json({

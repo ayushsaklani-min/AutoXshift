@@ -1,4 +1,3 @@
-import { Request, Response, NextFunction } from 'express'
 import { logger } from '../utils/logger'
 
 export interface AppError extends Error {
@@ -8,9 +7,9 @@ export interface AppError extends Error {
 
 export const errorHandler = (
   error: AppError,
-  req: Request,
-  res: Response,
-  next: NextFunction
+  req: any,
+  res: any,
+  next: any
 ): void => {
   let { statusCode = 500, message } = error
 
@@ -21,7 +20,7 @@ export const errorHandler = (
     url: req.url,
     method: req.method,
     ip: req.ip,
-    userAgent: req.get('User-Agent')
+    userAgent: req.get ? req.get('User-Agent') : undefined
   })
 
   // Handle specific error types
@@ -56,7 +55,7 @@ export const createError = (message: string, statusCode: number = 500): AppError
 }
 
 export const asyncHandler = (fn: Function) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return (req: any, res: any, next: any) => {
     Promise.resolve(fn(req, res, next)).catch(next)
   }
 }
