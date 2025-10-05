@@ -45,6 +45,8 @@ app.use((req: any, res: any, next: any) => {
 
 // Routes
 app.use('/api/health', healthRoutes)
+// Alias for Render health checks
+app.use('/health', healthRoutes)
 app.use('/api/swap', swapRoutes)
 app.use('/api/ai', aiRoutes)
 
